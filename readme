@@ -1,0 +1,568 @@
+Below is a complete **Google Colab workflow** to train a mango leaf disease detection model using your **4,000 images across 8 classes**, save the trained model, and create a simple **Gradio web app** for prediction.
+
+Your classes are:
+
+* Anthracnose
+* Bacterial Canker
+* Cutting Weevil
+* Die Back
+* Gall Midge
+* Healthy
+* Powdery Mildew
+* Sooty Mould
+
+---
+
+# 1. Set the Dataset Path
+
+```python
+from pathlib import Path
+import pandas as pd
+
+DATASET_PATH = Path("/content/dataset/MangoLeafBD Dataset")
+
+print("Dataset exists:", DATASET_PATH.exists())
+
+classes = sorted([p.name for p in DATASET_PATH.iterdir() if p.is_dir()])
+
+print("Classes:")
+for i, class_name in enumerate(classes):
+    print(f"{i}: {class_name}")
+
+print("\nNumber of classes:", len(classes))
+```
+
+---
+
+# 2. Create Training, Validation, and Test Datasets
+
+We will use:
+
+* **70% Training**
+* **15% Validation**
+* **15% Testing**
+
+```python
+import tensorflow as tf
+
+IMG_SIZE = (224, 224)
+BATCH_SIZE = 32
+SEED = 42
+
+train_ds = tf.keras.utils.image_dataset_from_directory(
+    DATASET_PATH,
+    validation_split=0.30,
+    subset="training",
+    seed=SEED,
+    image_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+    label_mode="int"
+)
+
+temp_ds = tf.keras.utils.image_dataset_from_directory(
+    DATASET_PATH,
+    validation_split=0.30,
+    subset="validation",
+    seed=SEED,
+    image_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+    label_mode="int"
+)
+
+class_names = train_ds.class_names
+
+print("Classes:", class_names)
+```
+
+Now split the remaining 30% into validation and test sets.
+
+```python
+temp_batches = tf.data.experimental.cardinality(temp_ds)
+
+test_size = int(temp_batches * 0.5)
+
+test_ds = temp_ds.take(test_size)
+val_ds = temp_ds.skip(test_size)
+
+print("Train batches:", tf.data.experimental.cardinality(train_ds).numpy())
+print("Validation batches:", tf.data.experimental.cardinality(val_ds).numpy())
+print("Test batches:", tf.data.experimental.cardinality(test_ds).numpy())
+```
+
+---
+
+# 3. Improve Data Pipeline Performance
+
+```python
+AUTOTUNE = tf.data.AUTOTUNE
+
+train_ds = train_ds.shuffle(1000).prefetch(AUTOTUNE)
+val_ds = val_ds.prefetch(AUTOTUNE)
+test_ds = test_ds.prefetch(AUTOTUNE)
+```
+
+---
+
+# 4. Visualize Some Training Images
+
+```python
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12, 10))
+
+for images, labels in train_ds.take(1):
+    
+    for i in range(12):
+        plt.subplot(3, 4, i + 1)
+        plt.imshow(images[i].numpy().astype("uint8"))
+        plt.title(class_names[labels[i]])
+        plt.axis("off")
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+# 5. Build the Model Using MobileNetV2
+
+Using **transfer learning** is a good choice for a dataset of 4,000 images.
+
+```python
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.layers import (
+    GlobalAveragePooling2D,
+    Dense,
+    Dropout,
+    BatchNormalization
+)
+from tensorflow.keras.models import Model
+
+NUM_CLASSES = len(class_names)
+
+base_model = MobileNetV2(
+    input_shape=(224, 224, 3),
+    include_top=False,
+    weights="imagenet"
+)
+
+# Freeze pretrained layers initially
+base_model.trainable = False
+```
+
+### Data augmentation
+
+```python
+data_augmentation = tf.keras.Sequential([
+    tf.keras.layers.RandomFlip("horizontal"),
+    tf.keras.layers.RandomRotation(0.1),
+    tf.keras.layers.RandomZoom(0.1),
+    tf.keras.layers.RandomContrast(0.1),
+])
+```
+
+### Create the complete model
+
+```python
+inputs = tf.keras.Input(shape=(224, 224, 3))
+
+x = data_augmentation(inputs)
+
+# MobileNetV2 preprocessing
+x = tf.keras.applications.mobilenet_v2.preprocess_input(x)
+
+x = base_model(x, training=False)
+
+x = GlobalAveragePooling2D()(x)
+
+x = BatchNormalization()(x)
+
+x = Dropout(0.3)(x)
+
+outputs = Dense(
+    NUM_CLASSES,
+    activation="softmax"
+)(x)
+
+model = Model(inputs, outputs)
+
+model.summary()
+```
+
+---
+
+# 6. Compile the Model
+
+```python
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+    loss="sparse_categorical_crossentropy",
+    metrics=["accuracy"]
+)
+```
+
+---
+
+# 7. Add Callbacks
+
+```python
+from tensorflow.keras.callbacks import (
+    EarlyStopping,
+    ModelCheckpoint,
+    ReduceLROnPlateau
+)
+
+callbacks = [
+
+    ModelCheckpoint(
+        "/content/best_mango_model.keras",
+        monitor="val_accuracy",
+        save_best_only=True,
+        mode="max",
+        verbose=1
+    ),
+
+    EarlyStopping(
+        monitor="val_loss",
+        patience=5,
+        restore_best_weights=True
+    ),
+
+    ReduceLROnPlateau(
+        monitor="val_loss",
+        factor=0.5,
+        patience=2,
+        min_lr=1e-7,
+        verbose=1
+    )
+]
+```
+
+---
+
+# 8. Train the Model
+
+```python
+EPOCHS = 20
+
+history = model.fit(
+    train_ds,
+    validation_data=val_ds,
+    epochs=EPOCHS,
+    callbacks=callbacks
+)
+```
+
+The best model will automatically be saved here:
+
+```text
+/content/best_mango_model.keras
+```
+
+---
+
+# 9. Fine-Tune the Model
+
+After the first training phase, unfreeze part of MobileNetV2.
+
+```python
+base_model.trainable = True
+
+# Freeze most layers
+for layer in base_model.layers[:-30]:
+    layer.trainable = False
+```
+
+Compile with a lower learning rate:
+
+```python
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(
+        learning_rate=0.00001
+    ),
+    loss="sparse_categorical_crossentropy",
+    metrics=["accuracy"]
+)
+```
+
+Train again:
+
+```python
+fine_tune_history = model.fit(
+    train_ds,
+    validation_data=val_ds,
+    epochs=10,
+    callbacks=callbacks
+)
+```
+
+---
+
+# 10. Load the Best Model
+
+```python
+best_model = tf.keras.models.load_model(
+    "/content/best_mango_model.keras"
+)
+```
+
+---
+
+# 11. Evaluate on the Test Dataset
+
+```python
+test_loss, test_accuracy = best_model.evaluate(test_ds)
+
+print(f"Test Loss: {test_loss:.4f}")
+print(f"Test Accuracy: {test_accuracy * 100:.2f}%")
+```
+
+---
+
+# 12. Classification Report and Confusion Matrix
+
+```python
+import numpy as np
+from sklearn.metrics import classification_report, confusion_matrix
+
+y_true = []
+y_pred = []
+
+for images, labels in test_ds:
+
+    predictions = best_model.predict(images, verbose=0)
+
+    predicted_labels = np.argmax(predictions, axis=1)
+
+    y_true.extend(labels.numpy())
+    y_pred.extend(predicted_labels)
+
+print(
+    classification_report(
+        y_true,
+        y_pred,
+        target_names=class_names
+    )
+)
+```
+
+### Confusion Matrix
+
+```python
+import matplotlib.pyplot as plt
+
+cm = confusion_matrix(y_true, y_pred)
+
+plt.figure(figsize=(10, 8))
+
+plt.imshow(cm)
+
+plt.xticks(
+    range(NUM_CLASSES),
+    class_names,
+    rotation=45,
+    ha="right"
+)
+
+plt.yticks(
+    range(NUM_CLASSES),
+    class_names
+)
+
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.title("Confusion Matrix")
+
+plt.colorbar()
+plt.tight_layout()
+
+plt.show()
+```
+
+---
+
+# 13. Save the Class Names
+
+This is important because the app must use the **same class order** as the model.
+
+```python
+import json
+
+with open("/content/class_names.json", "w") as f:
+    json.dump(class_names, f)
+
+print(class_names)
+```
+
+---
+
+# 14. Plot Training Accuracy and Loss
+
+```python
+plt.figure(figsize=(8, 5))
+
+plt.plot(history.history["accuracy"], label="Training Accuracy")
+plt.plot(history.history["val_accuracy"], label="Validation Accuracy")
+
+plt.title("Model Accuracy")
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy")
+plt.legend()
+
+plt.show()
+```
+
+```python
+plt.figure(figsize=(8, 5))
+
+plt.plot(history.history["loss"], label="Training Loss")
+plt.plot(history.history["val_loss"], label="Validation Loss")
+
+plt.title("Model Loss")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.legend()
+
+plt.show()
+```
+
+---
+
+# 15. Create a Disease Detection App with Gradio
+
+Install Gradio if necessary:
+
+```python
+!pip install -q gradio
+```
+
+Then create the application:
+
+```python
+import gradio as gr
+import numpy as np
+import tensorflow as tf
+import json
+
+# Load model
+model = tf.keras.models.load_model(
+    "/content/best_mango_model.keras"
+)
+
+# Load class names
+with open("/content/class_names.json", "r") as f:
+    class_names = json.load(f)
+
+
+def predict_mango_disease(image):
+
+    # Resize image
+    image = image.resize((224, 224))
+
+    # Convert to NumPy array
+    image_array = np.array(image)
+
+    # Remove alpha channel if present
+    if image_array.shape[-1] == 4:
+        image_array = image_array[:, :, :3]
+
+    # Add batch dimension
+    image_array = np.expand_dims(image_array, axis=0)
+
+    # Prediction
+    predictions = model.predict(
+        image_array,
+        verbose=0
+    )[0]
+
+    # Return class probabilities
+    results = {
+        class_names[i]: float(predictions[i])
+        for i in range(len(class_names))
+    }
+
+    return results
+```
+
+---
+
+# 16. Launch the Web App
+
+```python
+demo = gr.Interface(
+    fn=predict_mango_disease,
+
+    inputs=gr.Image(
+        type="pil",
+        label="Upload Mango Leaf Image"
+    ),
+
+    outputs=gr.Label(
+        num_top_classes=3,
+        label="Prediction"
+    ),
+
+    title="🥭 Mango Leaf Disease Detection",
+
+    description="""
+Upload an image of a mango leaf.
+
+The AI model will classify it into one of the following categories:
+
+• Anthracnose
+• Bacterial Canker
+• Cutting Weevil
+• Die Back
+• Gall Midge
+• Healthy
+• Powdery Mildew
+• Sooty Mould
+"""
+)
+
+demo.launch(share=True)
+```
+
+After running this cell in Colab, Gradio will provide a link where you can:
+
+1. Upload a mango leaf image.
+2. The image is resized to `224 × 224`.
+3. MobileNetV2 processes the image.
+4. The model predicts the disease.
+5. The app displays the **top 3 predicted classes with confidence scores**.
+
+---
+
+## Recommended Project Structure
+
+After training, you will have:
+
+```text
+/content/
+│
+├── dataset/
+│   └── MangoLeafBD Dataset/
+│       ├── Anthracnose/
+│       ├── Bacterial Canker/
+│       ├── Cutting Weevil/
+│       ├── Die Back/
+│       ├── Gall Midge/
+│       ├── Healthy/
+│       ├── Powdery Mildew/
+│       └── Sooty Mould/
+│
+├── best_mango_model.keras
+│
+└── class_names.json
+```
+
+### Optional: Download the trained model
+
+```python
+from google.colab import files
+
+files.download("/content/best_mango_model.keras")
+files.download("/content/class_names.json")
+```
+
+One important improvement I recommend before considering the reported accuracy final: use a **stratified image-level split** rather than splitting batched datasets, so the validation and test sets are precisely separated and each of your 8 classes remains balanced.
