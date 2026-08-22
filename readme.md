@@ -1,4 +1,4 @@
-Below is a polished **`README.md`** version with rich Markdown formatting, section hierarchy, code blocks, tables, notes, and a clear training workflow. I also completed the truncated **“Load the Best Model”** section.
+# Notebook: https://github.com/rahmanziaur/ML-Tute/blob/main/MangoLeafDiseaseAkash.ipynb
 
 # 🥭 Mango Leaf Classification using MobileNetV2
 
