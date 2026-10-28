@@ -1,0 +1,990 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPnQDQ7h4LA34fOqjgE03sV",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/rahmanziaur/llmtute/blob/main/MugdhaIT22018/Courses/Python%20Certificate%201%20%3A%20Rice%20University%20on%20Coursera\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cGMlZBWfza6P",
+        "outputId": "79d7ab20-986b-4739-f7a1-0719e16c02eb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Hello, World!\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(\"Hello, World!\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"int\")\n",
+        "print(\"---\")\n",
+        "print(\"0\")\n",
+        "print(\"1\")\n",
+        "print(\"-3\")\n",
+        "print(\"01234567891112\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "UIRxCpvOCRhf",
+        "outputId": "bf3a6746-346a-4beb-cd0c-01832565c9b4"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "int\n",
+            "---\n",
+            "0\n",
+            "1\n",
+            "-3\n",
+            "01234567891112\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"float\")\n",
+        "print(\"-----\")\n",
+        "print(\"0.0\")\n",
+        "print(\"7.45\")\n",
+        "print(\"-3.2\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ges1sJLgCuFu",
+        "outputId": "81012701-e2c3-4eb3-bcf8-e443e94aee25"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "float\n",
+            "---\n",
+            "0.0\n",
+            "7.45\n",
+            "-3.2\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Precision\")\n",
+        "print(\"---------\")\n",
+        "print(4.55266712407964581946916485835487624851845719646)\n",
+        "print(7.4555756286769562365983265856732564562398563975894353275963295634582356)\n",
+        "#Specific length porjonto show korbe"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "PfuOPWQzC6IG",
+        "outputId": "aad7f3a9-7de0-4c16-9c4c-891ec2aa3a6a"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Precision\n",
+            "---------\n",
+            "4.552667124079646\n",
+            "7.455575628676956\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Scientific Notation\")\n",
+        "print(\"-------------------\")\n",
+        "print(5e32)\n",
+        "print(99999999999999999999999999999999999999999999.9)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "UDPKuRjTDdy2",
+        "outputId": "94b3880a-3c48-4d10-b903-75953f998bac"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Scientific Notation\n",
+            "-------------------\n",
+            "5e+32\n",
+            "1e+44\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Infinity\")\n",
+        "print(\"--------\")\n",
+        "print(1e500)\n",
+        "print(-1e500)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Fa_cEZhJEHN3",
+        "outputId": "25ade66e-1941-41d9-8d4c-c648a13540d3"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Infinity\n",
+            "--------\n",
+            "inf\n",
+            "-inf\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Conversation between numeric types\n",
+        "print(float(3))\n",
+        "print(float(99999999999999999999999999999999999999))\n",
+        "print(int(3.0))\n",
+        "print(int(3.7))\n",
+        "print(int(-3.7))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-BMHKhzTEWb2",
+        "outputId": "c5ff19d2-bf25-43c6-8a12-e112f2608b53"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "3.0\n",
+            "1e+38\n",
+            "3\n",
+            "3\n",
+            "-3\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Unary Operations\n",
+        "print(+3)\n",
+        "print(-5)\n",
+        "print(+7.86)\n",
+        "print(-3348.63)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "v3KkKMlZFF4P",
+        "outputId": "bf557fb7-f878-42f5-f587-5b90e6e26b32"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "3\n",
+            "-5\n",
+            "7.86\n",
+            "-3348.63\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Addition and Subtraction\n",
+        "print(1+2)\n",
+        "print(48-89)\n",
+        "print(3.45+2.7)\n",
+        "print(87.3384-12.35)\n",
+        "print(3+6.7)\n",
+        "print(9.8-4)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bZfE3kRoFVof",
+        "outputId": "6d8ac74f-2d17-4bba-9126-82581ee487bb"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "3\n",
+            "-41\n",
+            "6.15\n",
+            "74.9884\n",
+            "9.7\n",
+            "5.800000000000001\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Multiplication\n",
+        "print(3*2)\n",
+        "print(7.8*27.54)\n",
+        "print(7*8.2)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pT66ZZm7F392",
+        "outputId": "103a8468-6163-4581-93b0-2861fe7a7677"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "6\n",
+            "214.81199999999998\n",
+            "57.39999999999999\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Division\n",
+        "print(8/2)\n",
+        "print(3/2)\n",
+        "print(7.538/14.3)\n",
+        "print(8//2)\n",
+        "print(3//2)\n",
+        "print(7.538//14.3)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GMJ7Z74JGENw",
+        "outputId": "09cdebe3-9027-40ed-e244-53aadc731cc9"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "4.0\n",
+            "1.5\n",
+            "0.5271328671328671\n",
+            "4\n",
+            "1\n",
+            "0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Exponentiation\n",
+        "print(3**2)\n",
+        "print(5**4)\n",
+        "print(32.6**7)\n",
+        "print(9**0.5)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5Ukkr1q-GrW-",
+        "outputId": "2c5aafa0-e54f-417a-a23c-712a515bc7ca"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "9\n",
+            "625\n",
+            "39131203087.55799\n",
+            "3.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Compound expressions\n",
+        "print(3 + 5 + 7 + 27)\n",
+        "print(18 - 6 + 4)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TBMhUkylHTtX",
+        "outputId": "46fb4cc5-a9b2-43ca-d7f7-dba199a95e9a"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "42\n",
+            "16\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Operator precedence\n",
+        "print(7 + 3 * 5)\n",
+        "print(5.5 * 6 // 2 + 8)\n",
+        "print(-3 ** 2)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6nMJqTNGHZV-",
+        "outputId": "ca47b120-926e-4739-c4a3-687ee7bac127"
+      },
+      "execution_count": 16,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "22\n",
+            "24.0\n",
+            "-9\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Grouping with parentheses\n",
+        "print((7 + 3) * 5)\n",
+        "print(5.5 * ((6 // 2) + 8))\n",
+        "print((-3) ** 2)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "d9vtXagNJnVP",
+        "outputId": "bc1ec69f-99ce-4cbc-ab3b-f24d4a42acfd"
+      },
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "50\n",
+            "60.5\n",
+            "9\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# The = operator can be used to assign values to variables\n",
+        "bakers_dozen = 12 + 1\n",
+        "temperature = 93\n",
+        "\n",
+        "# Variables can be used as values and in expressions\n",
+        "print(temperature, bakers_dozen)\n",
+        "print(\"celsius:\", (temperature - 32) * 5 / 9)\n",
+        "print(\"fahrenheit:\", float(temperature))\n",
+        "\n",
+        "# You can assign a different value to an existing variable\n",
+        "temperature = 26\n",
+        "print(\"new value:\", temperature)\n",
+        "\n",
+        "# Multiple variables can be used in arbitrary expressions\n",
+        "offset = 32\n",
+        "multiplier = 5.0 / 9.0\n",
+        "celsius = (temperature - offset) * multiplier\n",
+        "print(\"celsius value:\", celsius)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TW53qzE-KJHG",
+        "outputId": "8d9c9412-dc99-45ec-b170-42a16bfd7b6a"
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "93 13\n",
+            "celsius: 33.888888888888886\n",
+            "fahrenheit: 93.0\n",
+            "new value: 26\n",
+            "celsius value: -3.3333333333333335\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Examples of common errors in Python\n",
+        "\"\"\"\n",
+        "\n",
+        "# Remember you can use ctrl+k to comment a block of code and\n",
+        "# ctrl+shift+k to uncomment a block of code\n",
+        "\n",
+        "# Syntax errors correspond to problems where your code doesn't follow the rules\n",
+        "# for writing valid Python programs.  Note that these errors arise\n",
+        "# before Python tries to run your code\n",
+        "\n",
+        "#print \"To error is human, to forgive is divine\"\n",
+        "print (\"To error is human, to forgive is divine\")\n",
+        "\n",
+        "# In Python 2, print was a statement and didn't need parentheses\n",
+        "# In Python 3, print is a function and its arguments should be enclosed in parentheses\n",
+        "# For those moving from Python 2 to Python 3, this syntax error will be extrememly common\n",
+        "\n",
+        "#print(\"To error is human, to forgive is divine)\n",
+        "print (\"To error is human, to forgive is divine\")\n",
+        "\n",
+        "# As you enter expressions in Python, you will sometimes forget to include\n",
+        "# matching parentheses, quotations, brackets, etc.\n",
+        "\n",
+        "# When you get a syntax error, always check whether you have matched up pairs correctly.\n",
+        "# Note that CodeSkulptor tries to help you with this task via coloring.\n",
+        "# The right parenthesis is colored red to indicate an issue.\n",
+        "\n",
+        "# print_quote = True\n",
+        "# if print_quote:\n",
+        "#    print(\"To error is human, to forgive is divine\")\n",
+        "# else:\n",
+        "#\n",
+        "# print_quote = False\n",
+        "print_quote = True\n",
+        "if print_quote:\n",
+        "   print(\"To error is human, to forgive is divine\")\n",
+        "else:\n",
+        "   pass\n",
+        "print_quote = False\n",
+        "\n",
+        "# Note that sometimes Python doesn't detect a syntax error until it's moved on to\n",
+        "# processing the next line in your program.  If the line marked as having an error looks OK,\n",
+        "# be sure to check your previous line of code for problems.\n",
+        "\n",
+        "# Here the previous else clause is missing its body.  Since Python requires each if-else\n",
+        "# clause to have a body, we can insert a \"pass\" statement that does nothing.\n",
+        "\n",
+        "# Syntax errors happen while Python is trying to parse your program into a recognizable form.\n",
+        "# A second class of errors happen while Python is running your code. Here are a few examples.\n",
+        "\n",
+        "#pope_quote = \"To error is human, to forgive is divine\"\n",
+        "#print(popequote)\n",
+        "pope_quote = \"To error is human, to forgive is divine\"\n",
+        "print(pope_quote)\n",
+        "\n",
+        "# Name errors corresponds to issues where Python is trying to find a value for one\n",
+        "# of the variables in your code and doesn' have one.  In that case, Python tells\n",
+        "# you that your variable is not defined.\n",
+        "\n",
+        "# The most common cause of this error is misspelling a variable name.\n",
+        "\n",
+        "#joe_ranking = 1\n",
+        "#print(\"Joe is number \" + joe_ranking + \" coder.\")\n",
+        "joe_ranking = 1\n",
+        "print(\"Joe is number \" + str(joe_ranking) + \" coder.\")\n",
+        "\n",
+        "# Python loves to use the same operator on as many different types of data as possible.\n",
+        "# The + operator can be used to add numbers as well as add string (via concatenation)\n",
+        "# However, Python does know how to add a number and a string.\n",
+        "# Here, Python threw a Type error to indicate this fact.\n",
+        "\n",
+        "# To fix this error, you can convert joe_ranking to a string using str().\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "kEKsqkZWLbuv",
+        "outputId": "2938be22-d637-4aa9-b1f3-1f64ff9b8f85"
+      },
+      "execution_count": 22,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "To error is human, to forgive is divine\n",
+            "To error is human, to forgive is divine\n",
+            "To error is human, to forgive is divine\n",
+            "To error is human, to forgive is divine\n",
+            "Joe is number 1 coder.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the number of feet corresponding to a number of miles.\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Miles to feet conversion formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(13 * 5280)\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#68640"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mVnNCSF0PDDX",
+        "outputId": "d60b816b-3883-4ef4-924f-dbcf5e084321"
+      },
+      "execution_count": 23,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "68640\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the number of seconds in a given number of hours, minutes, and seconds.\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Hours, minutes, and seconds to seconds conversion formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print((7 * 60 + 21) * 60 + 37)\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#26497"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XV9zBYtGPJLG",
+        "outputId": "af84617c-6a4f-4555-800d-5b88f19228a8"
+      },
+      "execution_count": 24,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "26497\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the length of a rectangle's perimeter, given its width and height.\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Rectangle perimeter formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(4 * 2 + 7 * 2)\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#22"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "SZt89SrEPM7W",
+        "outputId": "9ba1a121-93b1-4289-8ea1-0e042a0874cc"
+      },
+      "execution_count": 25,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "22\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the area of a rectangle, given its width and height.\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Rectangle area formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(4 * 7)\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#28"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "2dluqL1WPQhe",
+        "outputId": "191426bc-c9dc-43fb-a89c-bda6b8a396b4"
+      },
+      "execution_count": 26,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "28\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the circumference of a circle, given the length of its radius.\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Circle circumference formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(2 * 3.14 * 8)\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#50.24"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "INKoj33SPUWW",
+        "outputId": "bbffb531-cd60-4b9e-8fd0-76a77424d7dc"
+      },
+      "execution_count": 27,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "50.24\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the area of a circle, given the length of its radius\n",
+        "\"\"\"\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Circle area formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(3.14 * 8 ** 2)\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#200.96"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lMS8orZZPfr_",
+        "outputId": "ef5b7645-d9e1-4065-f9d9-e0c3b7e0b80a"
+      },
+      "execution_count": 28,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "200.96\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the future value of a given present value, annual rate, and number of years.\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Future value formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(1000 * (1 + 0.01 * 7) ** 10)\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#1967.15135729"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "CcXII_Q6Piem",
+        "outputId": "73d07833-8f62-41c5-bd14-8d155ab10a1a"
+      },
+      "execution_count": 29,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1967.1513572895665\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute a name tag, given the first and last name.\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Name tag formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(\"My name is \" + \"Joe\" + \" \" + \"Warren\" + \".\")\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#My name is Joe Warren."
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5dkq8VbsPjrG",
+        "outputId": "2893eed8-797b-4fb0-9e72-4b7e8cde56ab"
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "My name is Joe Warren.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the statement about a person's name and age, given the person's name and age.\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Name and age formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(\"Joe Warren\" + \" is \" + str(56) + \" years old.\")\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#Joe Warren is 56 years old."
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "X8rgwcOFPmY-",
+        "outputId": "7c8aa3ab-cdf7-4e90-ecea-c17d756c83aa"
+      },
+      "execution_count": 31,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Joe Warren is 56 years old.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\"\"\"\n",
+        "Solution - Compute the distance between the points (x0, y0) and (x1, y1).\n",
+        "\"\"\"\n",
+        "\n",
+        "###################################################\n",
+        "# Distance formula\n",
+        "# Student should enter statement on the next line.\n",
+        "print(((2 - 5) ** 2 + (2 - 6) ** 2) ** 0.5)\n",
+        "# Hint: You need to use the power operation ** .\n",
+        "\n",
+        "\n",
+        "###################################################\n",
+        "# Expected output\n",
+        "# Student should look at the following comments and compare to printed output.\n",
+        "\n",
+        "#5.0"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "SkvqjIu2Psnm",
+        "outputId": "857ffea7-d9f7-43a4-9a30-209892f812ec"
+      },
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "5.0\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
